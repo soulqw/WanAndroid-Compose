@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.newdemo.ITestServer
 import com.example.newdemo.databinding.FragmentHomeBinding
 import com.example.newdemo.service.NewProcessService
+import com.example.newdemo.compose.WanAndroidActivity
 
 class HomeFragment : Fragment() {
 
@@ -68,6 +69,9 @@ class HomeFragment : Fragment() {
         textView.setOnClickListener {
             serverCenter.sayData("hello")
             textView.text = serverCenter.getData("go")
+        }
+        binding.buttonCompose.setOnClickListener {
+            startActivity(Intent(context, WanAndroidActivity::class.java))
         }
         return root
     }
