@@ -10,6 +10,7 @@ import com.example.newdemo.repo.MainServiceImp
 import com.test.soultools.tool.log.TLog
 import kotlinx.coroutines.launch
 
+
 class WanMainViewModel : ViewModel() {
 
     companion object {
@@ -38,13 +39,15 @@ class WanMainViewModel : ViewModel() {
 
     private val _itemIndexData = mutableStateListOf<IndexItem>()
 
+//    private val _itemIndexData by mutableStateListOf<IndexItem>()
+
     val itemIndexData: List<IndexItem> = _itemIndexData
 
     var loadMoreIndex = 0
 
     private var isRequesting = false
 
-    fun refreshIndexArticle(onSuccess: () -> Unit) {
+    fun refreshIndexArticle() {
         loadMoreIndex = 0
         _itemIndexData.clear()
         viewModelScope.launch {
@@ -52,7 +55,6 @@ class WanMainViewModel : ViewModel() {
             TLog.d(TAG, data.toString())
             val dataList = data.data.datas
             _itemIndexData.addAll(dataList)
-            onSuccess()
         }
     }
 

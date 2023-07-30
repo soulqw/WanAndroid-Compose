@@ -1,21 +1,30 @@
 package com.example.newdemo.compose
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
 import com.example.newdemo.WebViewActivity
 import com.example.newdemo.compose.widgets.BottomBar
 import com.example.newdemo.compose.widgets.IndexList
-import com.example.newdemo.compose.widgets.WanToolBar
 import com.test.soultools.tool.log.TLog
 import kotlinx.coroutines.launch
 
@@ -29,14 +38,38 @@ class WanAndroidActivity : ComponentActivity() {
         ViewModelProvider(this@WanAndroidActivity)[WanMainViewModel::class.java]
     }
 
+    @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     @OptIn(ExperimentalFoundationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initComponent()
-        viewModel.refreshIndexArticle {
-            setContent {
+        viewModel.refreshIndexArticle()
+        setContent {
+            val scaffoldState = rememberScaffoldState()
+            val scope = rememberCoroutineScope()
+            Scaffold(
+                scaffoldState = scaffoldState,
+                topBar = {
+                    TopAppBar(
+                        title = { Text(text = "WanAndroid") },
+                        navigationIcon = {
+                            IconButton(onClick = {
+                                scope.launch {
+                                    scaffoldState.drawerState.open()
+                                }
+                            }) {
+                                Icon(Icons.Filled.Menu, contentDescription = "back")
+                            }
+                        },
+                    )
+                },
+                drawerContent = {
+                    Text("Drawer title", modifier = Modifier.padding(16.dp))
+                    Divider()
+                    // Drawer items
+                }
+            ) {
                 Column {
-                    Toolbar()
                     val pagerState = rememberPagerState()
                     HorizontalPager(
                         pageCount = 5,
@@ -47,15 +80,16 @@ class WanAndroidActivity : ComponentActivity() {
                             0 -> {
                                 IndexList(articles = viewModel.itemIndexData)
                             }
+
                             1 -> {
                                 Text(text = "this is wechat")
                             }
+
                             else -> {
                                 Text(text = "extra")
                             }
                         }
                     }
-                    val scope = rememberCoroutineScope()
                     BottomBar(pagerState.currentPage) {
                         TLog.d(TAG, it)
                         scope.launch {
@@ -68,21 +102,8 @@ class WanAndroidActivity : ComponentActivity() {
     }
 
     private fun initComponent() {
-        setContent {
-            Column {
-                Toolbar()
-            }
-        }
         viewModel.onClickData.observe(this) {
             WebViewActivity.start(applicationContext, it.link)
-        }
-    }
-
-    @Composable
-    fun Toolbar() {
-        WanToolBar(title = "WanAndroid") {
-            TLog.d(TAG, "onBackPressed")
-            this@WanAndroidActivity.finish()
         }
     }
 
