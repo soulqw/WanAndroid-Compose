@@ -19,8 +19,11 @@ android {
     }
 
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
+        }
+        release {
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -35,6 +38,7 @@ android {
         viewBinding true
         aidl true
         compose true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
@@ -60,6 +64,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0")
 
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.google.code.gson:gson:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
@@ -67,14 +72,11 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
 
-    implementation 'com.github.soulqw:CommonTools:0.0.3'
+    implementation 'com.github.soulqw:CommonTools:0.0.4'
 
-    compileOnly 'com.github.soulqw.lancet:lancet-base:1.0.0'
+//    compileOnly 'com.github.soulqw.lancet:lancet-base:1.0.0'
 
 //    classpath 'com.github.soulqw.lancet:lancet-plugin:1.0.0'
-
-
-
 
 
 }

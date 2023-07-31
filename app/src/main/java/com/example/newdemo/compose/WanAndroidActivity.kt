@@ -6,25 +6,22 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
 import com.example.newdemo.WebViewActivity
 import com.example.newdemo.compose.widgets.BottomBar
+import com.example.newdemo.compose.widgets.DrawerContent
 import com.example.newdemo.compose.widgets.IndexList
+import com.example.newdemo.compose.widgets.LoginScreen
+import com.example.newdemo.compose.widgets.WanToolBar
 import com.test.soultools.tool.log.TLog
 import kotlinx.coroutines.launch
 
@@ -38,35 +35,33 @@ class WanAndroidActivity : ComponentActivity() {
         ViewModelProvider(this@WanAndroidActivity)[WanMainViewModel::class.java]
     }
 
-    @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-    @OptIn(ExperimentalFoundationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initComponent()
         viewModel.refreshIndexArticle()
+        setContent {
+            LoginScreen()
+        }
+//        mainPage()
+    }
+
+    @OptIn(ExperimentalFoundationApi::class)
+    @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+    fun mainPage() {
         setContent {
             val scaffoldState = rememberScaffoldState()
             val scope = rememberCoroutineScope()
             Scaffold(
                 scaffoldState = scaffoldState,
                 topBar = {
-                    TopAppBar(
-                        title = { Text(text = "WanAndroid") },
-                        navigationIcon = {
-                            IconButton(onClick = {
-                                scope.launch {
-                                    scaffoldState.drawerState.open()
-                                }
-                            }) {
-                                Icon(Icons.Filled.Menu, contentDescription = "back")
-                            }
-                        },
-                    )
+                    WanToolBar(title = "WanAndroid", icon = Icons.Filled.Menu) {
+                        scope.launch {
+                            scaffoldState.drawerState.open()
+                        }
+                    }
                 },
                 drawerContent = {
-                    Text("Drawer title", modifier = Modifier.padding(16.dp))
-                    Divider()
-                    // Drawer items
+                    DrawerContent()
                 }
             ) {
                 Column {
@@ -74,7 +69,8 @@ class WanAndroidActivity : ComponentActivity() {
                     HorizontalPager(
                         pageCount = 5,
                         modifier = Modifier.weight(1f),
-                        state = pagerState
+                        state = pagerState,
+                        userScrollEnabled = false
                     ) { page ->
                         when (page) {
                             0 -> {
