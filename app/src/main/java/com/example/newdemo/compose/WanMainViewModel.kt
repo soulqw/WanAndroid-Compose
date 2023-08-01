@@ -5,13 +5,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.newdemo.core.uitils.requestData
 import com.example.newdemo.model.IndexItem
 import com.example.newdemo.repo.MainServiceImp
+import com.example.newdemo.repo.User
 import com.test.soultools.tool.log.TLog
 import kotlinx.coroutines.launch
 
 
 class WanMainViewModel : ViewModel() {
+
 
     companion object {
 
@@ -51,9 +54,11 @@ class WanMainViewModel : ViewModel() {
         loadMoreIndex = 0
         _itemIndexData.clear()
         viewModelScope.launch {
-            val data = MainServiceImp.getIndexArticles(loadMoreIndex)
-            TLog.d(TAG, data.toString())
-            val dataList = data.data.datas
+            val result = requestData {
+                MainServiceImp.getIndexArticles(loadMoreIndex)
+            } ?: return@launch
+            TLog.d(TAG, result)
+            val dataList = result.datas
             _itemIndexData.addAll(dataList)
         }
     }
@@ -66,9 +71,11 @@ class WanMainViewModel : ViewModel() {
         isRequesting = true
         loadMoreIndex++
         viewModelScope.launch {
-            val data = MainServiceImp.getIndexArticles(loadMoreIndex)
-            TLog.d(TAG, data.toString())
-            val dataList = data.data.datas
+            val result = requestData {
+                MainServiceImp.getIndexArticles(loadMoreIndex)
+            } ?: return@launch
+            TLog.d(TAG, result)
+            val dataList = result.datas
             _itemIndexData.addAll(dataList)
             isRequesting = false
         }
@@ -77,5 +84,16 @@ class WanMainViewModel : ViewModel() {
 
     //index list end
 
-
+    fun login(account: String, password: String, callBack: (user: User) -> Unit) {
+        viewModelScope.launch {
+            val result = requestData {
+                MainServiceImp.loginWanAndroid(account, password)
+            }
+            result ?: return@launch
+            TLog.d(TAG, "$result")
+            val user = User(result.username, result.id)
+            User.update(user = user)
+            callBack(user)
+        }
+    }
 }

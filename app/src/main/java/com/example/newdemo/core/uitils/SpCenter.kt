@@ -16,6 +16,8 @@ object SpCenter {
 
     var COOKIE by Delegates.string("")
 
+    var USER by Delegates.string("")
+
     object Delegates {
 
         fun int(defaultValue: Int = 0) = object : ReadWriteProperty<SpCenter, Int> {

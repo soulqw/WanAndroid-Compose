@@ -17,21 +17,26 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import com.example.newdemo.compose.WanMainViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun LoginScreen() {
+fun LoginScreen(nvController: NavHostController, viewModel: WanMainViewModel) {
+
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
         modifier = Modifier.fillMaxSize(),
         topBar = {
             WanToolBar(title = "Login", icon = Icons.Default.ArrowBack) {
-
+                nvController.popBackStack()
             }
         }
     ) {
@@ -42,9 +47,17 @@ fun LoginScreen() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
+            val name = remember {
+                mutableStateOf("")
+            }
+            var password = remember {
+                mutableStateOf("")
+            }
             OutlinedTextField(
-                value = "",
-                onValueChange = { },
+                value = name.value,
+                onValueChange = {
+                    name.value = it.trim()
+                },
                 label = { Text(text = "Account") },
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Email
@@ -53,8 +66,10 @@ fun LoginScreen() {
             )
             Spacer(modifier = Modifier.height(16.dp))
             OutlinedTextField(
-                value = "",
-                onValueChange = { },
+                value = password.value,
+                onValueChange = {
+                    password.value = it.trim()
+                },
                 label = { Text(text = "Password") },
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Password
@@ -64,7 +79,11 @@ fun LoginScreen() {
             )
             Spacer(modifier = Modifier.height(16.dp))
             Button(
-                onClick = { },
+                onClick = {
+                    viewModel.login(name.value, password.value) {
+                        nvController.popBackStack()
+                    }
+                },
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(text = "Sign In")

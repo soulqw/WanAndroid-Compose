@@ -1,6 +1,6 @@
 package com.example.newdemo.model
 
-data class Data(
+data class IndexListModel(
     val curPage: Int,
     val datas: List<IndexItem>,
     val offset: Int,

@@ -1,6 +1,7 @@
 package com.example.newdemo.core.net.interceptor
 
 import com.example.newdemo.core.net.HttpConstant
+import com.test.soultools.tool.log.TLog
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -20,6 +21,7 @@ class SaveCookieInterceptor : Interceptor {
             val cookies = response.headers(HttpConstant.SET_COOKIE_KEY)
             val cookie = HttpConstant.encodeCookie(cookies)
             HttpConstant.saveCookie(requestUrl, domain, cookie)
+            TLog.d("qw", requestUrl, domain, cookie)
         }
         return response
     }

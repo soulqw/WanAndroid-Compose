@@ -1,7 +1,7 @@
 package com.example.newdemo.model
 
-data class IndexModel(
-    val `data`: Data,
+data class BusinessResp<T>(
+    val `data`: T,
     val errorCode: Int,
     val errorMsg: String
 )

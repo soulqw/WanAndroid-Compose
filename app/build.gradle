@@ -62,6 +62,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1'
     implementation 'androidx.activity:activity-compose:1.7.2'
     implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation "androidx.navigation:navigation-compose:$compose_version"
+
 
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
     implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
@@ -74,9 +76,6 @@ dependencies {
 
     implementation 'com.github.soulqw:CommonTools:0.0.4'
 
-//    compileOnly 'com.github.soulqw.lancet:lancet-base:1.0.0'
-
-//    classpath 'com.github.soulqw.lancet:lancet-plugin:1.0.0'
 
 
 }
