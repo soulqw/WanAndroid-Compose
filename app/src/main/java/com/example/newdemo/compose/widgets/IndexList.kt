@@ -35,14 +35,15 @@ import com.test.soultools.tool.log.TLog
 @Composable
 fun IndexList(
     status: LazyListState = rememberLazyListState(),
-    articles: List<IndexItem>
+    articles: List<IndexItem>,
+    onItemClick: (index: Int, item: IndexItem) -> Unit,
 ) {
     val viewModelWe: WanMainViewModel = viewModel()
     LazyColumn(state = status) {
         itemsIndexed(articles) { index, item ->
             Column(Modifier
                 .clickable {
-                    viewModelWe.openArticleDetail(item)
+                    onItemClick(index, item)
                 }
                 .fillMaxWidth()
                 .padding(8.dp)) {

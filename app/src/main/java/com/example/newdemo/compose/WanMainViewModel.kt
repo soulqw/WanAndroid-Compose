@@ -1,8 +1,6 @@
 package com.example.newdemo.compose
 
 import androidx.compose.runtime.mutableStateListOf
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newdemo.core.uitils.requestData
@@ -21,22 +19,6 @@ class WanMainViewModel : ViewModel() {
         private const val TAG = "WanMainViewModel"
 
     }
-
-    /**
-     * onclick start
-     */
-    private val _itemClickData = MutableLiveData<IndexItem>()
-
-    val onClickData: LiveData<IndexItem> = _itemClickData
-
-    fun openArticleDetail(article: IndexItem) {
-        TLog.d(TAG, article)
-        _itemClickData.value = article
-    }
-
-    /**
-     * onIndex click end
-     */
 
     //index list start
 
@@ -96,4 +78,5 @@ class WanMainViewModel : ViewModel() {
             callBack(user)
         }
     }
+
 }

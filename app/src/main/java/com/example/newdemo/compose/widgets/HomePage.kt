@@ -13,17 +13,25 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.newdemo.compose.WanMainViewModel
+import com.example.newdemo.model.IndexItem
 import com.test.soultools.tool.log.TLog
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun MainPage(nvController: NavHostController, viewModel: WanMainViewModel) {
+fun MainPage(
+    nvController: NavHostController,
+    onItemClick: (index: Int, item: IndexItem) -> Unit
+) {
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
+    val viewModel: WanMainViewModel = viewModel()
+    viewModel.refreshIndexArticle()
+    TLog.d("qw", viewModel)
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
@@ -47,7 +55,7 @@ fun MainPage(nvController: NavHostController, viewModel: WanMainViewModel) {
             ) { page ->
                 when (page) {
                     0 -> {
-                        IndexList(articles = viewModel.itemIndexData)
+                        IndexList(articles = viewModel.itemIndexData, onItemClick = onItemClick)
                     }
 
                     1 -> {
