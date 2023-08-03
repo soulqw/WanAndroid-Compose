@@ -79,4 +79,15 @@ class WanMainViewModel : ViewModel() {
         }
     }
 
+    fun logout(callBack: () -> Unit) {
+        viewModelScope.launch {
+            val result = requestData {
+                MainServiceImp.logoutWanAndroid()
+            }
+            callBack()
+            result ?: return@launch
+            TLog.d(TAG, "$result")
+        }
+    }
+
 }

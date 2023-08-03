@@ -2,6 +2,7 @@ package com.example.newdemo.repo
 
 import com.example.newdemo.model.BusinessResp
 import com.example.newdemo.model.IndexListModel
+import com.example.newdemo.model.UserProfile
 import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -20,5 +21,15 @@ interface MainServices {
         @Field("username") username: String,
         @Field("password") password: String
     ): Response<BusinessResp<LoginData>>
+
+    /**
+     * 即cookie max-Age=0
+     */
+    @GET("user/logout/json")
+    suspend fun logoutWanAndroid(): Response<BusinessResp<String>>
+
+    @GET("/user/lg/userinfo/json")
+    suspend fun getUserProfileInfo(): Response<BusinessResp<UserProfile>>
+
 
 }

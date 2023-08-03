@@ -3,6 +3,7 @@ package com.example.newdemo.repo
 import com.example.newdemo.core.net.NetWorkCore
 import com.example.newdemo.model.BusinessResp
 import com.example.newdemo.model.IndexListModel
+import com.example.newdemo.model.UserProfile
 import retrofit2.Response
 
 object MainServiceImp {
@@ -20,6 +21,14 @@ object MainServiceImp {
         password: String
     ): Response<BusinessResp<LoginData>> {
         return api.loginWanAndroid(username, password)
+    }
+
+    suspend fun logoutWanAndroid(): Response<BusinessResp<String>> {
+        return api.logoutWanAndroid()
+    }
+
+    suspend fun getUserProfileInfo(): Response<BusinessResp<UserProfile>> {
+        return api.getUserProfileInfo()
     }
 
 }

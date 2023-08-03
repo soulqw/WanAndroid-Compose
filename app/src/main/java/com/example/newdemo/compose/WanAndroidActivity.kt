@@ -9,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.newdemo.WebViewActivity
 import com.example.newdemo.compose.widgets.LoginScreen
 import com.example.newdemo.compose.widgets.MainPage
+import com.example.newdemo.compose.widgets.PersonalDetailsScreen
 
 class WanAndroidActivity : ComponentActivity() {
 
@@ -20,7 +21,6 @@ class WanAndroidActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
-//            MainPage(nvController = navController, viewModel)
             NavHost(navController, startDestination = RouterDefine.HOME) {
                 composable(RouterDefine.HOME) {
                     MainPage(nvController = navController) { _, item ->
@@ -29,6 +29,11 @@ class WanAndroidActivity : ComponentActivity() {
                 }
                 composable(RouterDefine.LOGIN) {
                     LoginScreen(
+                        nvController = navController
+                    )
+                }
+                composable(RouterDefine.USER_PROFILE) {
+                    PersonalDetailsScreen(
                         nvController = navController
                     )
                 }

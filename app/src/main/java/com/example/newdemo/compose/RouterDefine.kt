@@ -5,5 +5,6 @@ class RouterDefine {
     companion object {
         const val HOME = "home"
         const val LOGIN = "login"
+        const val USER_PROFILE = "profile"
     }
 }

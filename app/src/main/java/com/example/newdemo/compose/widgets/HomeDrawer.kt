@@ -34,10 +34,9 @@ fun DrawerContent(nvController: NavHostController) {
         Column(modifier = Modifier
             .fillMaxWidth()
             .clickable {
-                if (User
-                        .isLogin()
-                        .not()
-                ) {
+                if (User.alreadyLogin()) {
+                    nvController.navigate(RouterDefine.USER_PROFILE)
+                } else {
                     nvController.navigate(RouterDefine.LOGIN)
                 }
             }) {
@@ -49,7 +48,7 @@ fun DrawerContent(nvController: NavHostController) {
                     .padding(horizontal = 16.dp)
             )
             Text(
-                text = if (User.isLogin()) {
+                text = if (User.alreadyLogin()) {
                     User.current.value.username
                 } else {
                     "未登录"

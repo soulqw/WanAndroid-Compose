@@ -19,7 +19,7 @@ class User(val username: String, val id: Int) {
             return User("", -1)
         }
 
-        fun isLogin(): Boolean {
+        fun alreadyLogin(): Boolean {
             return get() != null
         }
 
