@@ -5,10 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newdemo.core.uitils.requestData
 import com.example.newdemo.model.IndexItem
+import com.example.newdemo.model.User
 import com.example.newdemo.repo.MainServiceImp
-import com.example.newdemo.repo.User
 import com.test.soultools.tool.log.TLog
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class WanMainViewModel : ViewModel() {
@@ -32,16 +35,21 @@ class WanMainViewModel : ViewModel() {
 
     private var isRequesting = false
 
+    private var refreshJob: Job? = null
+
     fun refreshIndexArticle() {
+        TLog.d(TAG)
+        refreshJob?.cancel()
         loadMoreIndex = 0
         _itemIndexData.clear()
-        viewModelScope.launch {
+        refreshJob = viewModelScope.launch {
             val result = requestData {
                 MainServiceImp.getIndexArticles(loadMoreIndex)
             } ?: return@launch
             TLog.d(TAG, result)
             val dataList = result.datas
             _itemIndexData.addAll(dataList)
+            refreshJob = null
         }
     }
 
@@ -69,13 +77,14 @@ class WanMainViewModel : ViewModel() {
     fun login(account: String, password: String, callBack: (user: User) -> Unit) {
         viewModelScope.launch {
             val result = requestData {
-                MainServiceImp.loginWanAndroid(account, password)
+                val result = MainServiceImp.loginWanAndroid(account, password)
+                TLog.d(TAG, "login first $result")
+                MainServiceImp.getUserProfileInfo()
             }
             result ?: return@launch
             TLog.d(TAG, "$result")
-            val user = User(result.username, result.id)
-            User.update(user = user)
-            callBack(user)
+            User.update(user = result.userInfo)
+            callBack(result.userInfo)
         }
     }
 
@@ -85,6 +94,7 @@ class WanMainViewModel : ViewModel() {
                 MainServiceImp.logoutWanAndroid()
             }
             callBack()
+            User.clear()
             result ?: return@launch
             TLog.d(TAG, "$result")
         }

@@ -1,6 +1,10 @@
 package com.example.newdemo.core.net
 
+import android.annotation.SuppressLint
 import com.example.newdemo.core.uitils.SpCenter
+import com.test.soultools.tool.log.TLog
+import java.text.SimpleDateFormat
+import java.util.Date
 
 
 object HttpConstant {
@@ -25,6 +29,8 @@ object HttpConstant {
 
     const val SET_COOKIE_KEY = "set-cookie"
     const val COOKIE_NAME = "Cookie"
+
+    const val TAG = "HttpConstant"
 
     const val MAX_CACHE_SIZE: Long = 1024 * 1024 * 50 // 50M 的缓存大小
 
@@ -60,6 +66,31 @@ object HttpConstant {
 //        @Suppress("UNUSED_VALUE")
 //        spDomain = cookies
         SpCenter.COOKIE = cookies
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun checkCookieExpired(cookies: List<String>?): Boolean {
+        if (cookies.isNullOrEmpty() || cookies.size < 2) {
+            return true
+        }
+        try {
+            val time = cookies[1]
+                .split(";")[1]
+                .replace(" Expires=", "")
+            val dateFormat = SimpleDateFormat("EEE, dd-MMM-yyyy HH:mm:ss z")
+            val targetDate = dateFormat.parse(time)
+            val currentDate = Date()
+            return if (currentDate.before(targetDate)) {
+                TLog.d(TAG, "没过期")
+                false
+            } else {
+                TLog.d(TAG, "过期")
+                true
+            }
+        } catch (e: Exception) {
+            TLog.d(TAG, e)
+        }
+        return true
     }
 
 }

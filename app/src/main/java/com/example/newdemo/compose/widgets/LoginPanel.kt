@@ -17,8 +17,10 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
@@ -27,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.newdemo.compose.WanMainViewModel
+import com.example.newdemo.core.uitils.CommonUtils
 import com.test.soultools.tool.log.TLog
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -50,16 +53,16 @@ fun LoginScreen(nvController: NavHostController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
-            val name = remember {
+            var name by remember {
                 mutableStateOf("")
             }
-            var password = remember {
+            var password by remember {
                 mutableStateOf("")
             }
             OutlinedTextField(
-                value = name.value,
+                value = name,
                 onValueChange = {
-                    name.value = it.trim()
+                    name = it.trim()
                 },
                 label = { Text(text = "Account") },
                 keyboardOptions = KeyboardOptions.Default.copy(
@@ -69,9 +72,9 @@ fun LoginScreen(nvController: NavHostController) {
             )
             Spacer(modifier = Modifier.height(16.dp))
             OutlinedTextField(
-                value = password.value,
+                value = password,
                 onValueChange = {
-                    password.value = it.trim()
+                    password = it.trim()
                 },
                 label = { Text(text = "Password") },
                 keyboardOptions = KeyboardOptions.Default.copy(
@@ -83,7 +86,11 @@ fun LoginScreen(nvController: NavHostController) {
             Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = {
-                    viewModel.login(name.value, password.value) {
+                    if (name.isBlank() || password.isEmpty()) {
+                        CommonUtils.shortToast("账号或密码为空")
+                        return@Button
+                    }
+                    viewModel.login(name, password) {
                         nvController.popBackStack()
                     }
                 },

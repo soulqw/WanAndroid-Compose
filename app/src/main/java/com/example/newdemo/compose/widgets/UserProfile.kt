@@ -21,12 +21,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.newdemo.compose.WanMainViewModel
-import com.example.newdemo.repo.User
+import com.example.newdemo.model.User
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun PersonalDetailsScreen(nvController: NavHostController) {
-    val user = User.current
     val viewModel: WanMainViewModel = viewModel()
     Scaffold(
         topBar = {
@@ -45,11 +44,14 @@ fun PersonalDetailsScreen(nvController: NavHostController) {
                         .size(120.dp)
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                Text(text = user.value.username, style = MaterialTheme.typography.h5)
+                Text(text = User.current.getShowName(), style = MaterialTheme.typography.h5)
                 Spacer(modifier = Modifier.height(8.dp))
-                Text(text = "johndoe@gmail.com", style = MaterialTheme.typography.subtitle1)
+                Text(text = User.current.nickname, style = MaterialTheme.typography.subtitle1)
                 Spacer(modifier = Modifier.height(8.dp))
-                Text(text = "123-456-7890", style = MaterialTheme.typography.subtitle1)
+                Text(
+                    text = User.current.coinCount.toString(),
+                    style = MaterialTheme.typography.subtitle1
+                )
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(
                     onClick = {

@@ -35,11 +35,11 @@ object NetWorkCore {
 
     private fun configLogger(): HttpLoggingInterceptor {
         val logger = HttpLoggingInterceptor.Logger { message ->
-            if (message.startsWith("{") || message.startsWith("[")) {
-                TLog.printJson(TAG, message, "---------------------")
-            } else {
+//            if (message.startsWith("{") || message.startsWith("[")) {
+//                TLog.printJson(TAG, message, "---------------------")
+//            } else {
                 TLog.d(TAG, message)
-            }
+//            }
         }
         return HttpLoggingInterceptor(logger).also {
             if (BuildConfig.DEBUG) {

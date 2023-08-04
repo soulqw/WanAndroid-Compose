@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.newdemo.compose.RouterDefine
-import com.example.newdemo.repo.User
+import com.example.newdemo.model.User
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -49,7 +49,7 @@ fun DrawerContent(nvController: NavHostController) {
             )
             Text(
                 text = if (User.alreadyLogin()) {
-                    User.current.value.username
+                    User.current.getShowName()
                 } else {
                     "未登录"
                 },
