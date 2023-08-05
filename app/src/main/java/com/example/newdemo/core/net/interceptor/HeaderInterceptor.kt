@@ -14,7 +14,6 @@ class HeaderInterceptor : Interceptor {
 
         builder.addHeader("Content-type", "application/json; charset=utf-8")
         val domain = request.url.host
-        val url = request.url.toString()
         if (domain.isNotEmpty()
         ) {
             val cookie: String = SpCenter.COOKIE

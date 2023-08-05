@@ -1,6 +1,7 @@
 package com.example.newdemo.repo
 
 import com.example.newdemo.model.BusinessResp
+import com.example.newdemo.model.IndexItem
 import com.example.newdemo.model.IndexListModel
 import com.example.newdemo.model.UserProfile
 import retrofit2.Response
@@ -12,8 +13,11 @@ import retrofit2.http.Path
 
 interface MainServices {
 
+    @GET("article/top/json")
+    suspend fun getTopArticles(): Response<BusinessResp<List<IndexItem>>>
+
     @GET("article/list/{index}/json")
-    suspend fun getIndexArticles(@Path("index") index: String): Response<BusinessResp<IndexListModel>>
+    suspend fun getIndexArticles(@Path("index") index: Int): Response<BusinessResp<IndexListModel>>
 
     @POST("user/login")
     @FormUrlEncoded

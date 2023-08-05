@@ -5,13 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newdemo.core.uitils.requestData
 import com.example.newdemo.model.IndexItem
+import com.example.newdemo.model.Tag
 import com.example.newdemo.model.User
 import com.example.newdemo.repo.MainServiceImp
 import com.test.soultools.tool.log.TLog
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class WanMainViewModel : ViewModel() {
@@ -37,18 +37,27 @@ class WanMainViewModel : ViewModel() {
 
     private var refreshJob: Job? = null
 
-    fun refreshIndexArticle() {
+    fun refreshIndexListPage() {
         TLog.d(TAG)
         refreshJob?.cancel()
         loadMoreIndex = 0
         _itemIndexData.clear()
         refreshJob = viewModelScope.launch {
-            val result = requestData {
+            val topData = viewModelScope.async {
+                MainServiceImp.getTopArticles()
+            }
+            val firstFreshData = viewModelScope.async {
                 MainServiceImp.getIndexArticles(loadMoreIndex)
-            } ?: return@launch
-            TLog.d(TAG, result)
-            val dataList = result.datas
-            _itemIndexData.addAll(dataList)
+            }
+            val topResult = topData.await().body()?.data ?: return@launch
+            val firstResult = firstFreshData.await().body()?.data?.datas ?: return@launch
+            val finalResult = ArrayList<IndexItem>(topResult)
+            finalResult.forEach {
+                it.tags.add(0, Tag("置顶", ""))
+            }
+            finalResult.addAll(firstResult)
+            TLog.d(TAG, finalResult)
+            _itemIndexData.addAll(finalResult)
             refreshJob = null
         }
     }

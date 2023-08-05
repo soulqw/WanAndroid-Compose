@@ -2,6 +2,7 @@ package com.example.newdemo.repo
 
 import com.example.newdemo.core.net.NetWorkCore
 import com.example.newdemo.model.BusinessResp
+import com.example.newdemo.model.IndexItem
 import com.example.newdemo.model.IndexListModel
 import com.example.newdemo.model.UserProfile
 import retrofit2.Response
@@ -12,8 +13,12 @@ object MainServiceImp {
         NetWorkCore.retrofit.create(MainServices::class.java)
     }
 
+    suspend fun getTopArticles(): Response<BusinessResp<List<IndexItem>>> {
+        return api.getTopArticles()
+    }
+
     suspend fun getIndexArticles(index: Int): Response<BusinessResp<IndexListModel>> {
-        return api.getIndexArticles(index.toString())
+        return api.getIndexArticles(index)
     }
 
     suspend fun loginWanAndroid(

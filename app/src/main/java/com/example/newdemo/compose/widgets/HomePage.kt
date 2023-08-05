@@ -30,7 +30,7 @@ fun MainPage(
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val viewModel: WanMainViewModel = viewModel()
-    viewModel.refreshIndexArticle()
+    viewModel.refreshIndexListPage()
     TLog.d("qw", viewModel)
     Scaffold(
         scaffoldState = scaffoldState,

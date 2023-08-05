@@ -18,7 +18,9 @@ fun Tag(tagName: String, color: Color) {
     Box(
         modifier = Modifier
             .background(Color.Transparent)
-            .border(0.5.dp, color, RoundedCornerShape(2.dp))
+            .border(
+                0.5.dp, color, RoundedCornerShape(2.dp)
+            )
             .padding(2.dp, 0.dp)
     ) {
         Text(

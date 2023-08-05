@@ -30,7 +30,7 @@ data class IndexItem(
     val shareUser: String,
     val superChapterId: Int,
     val superChapterName: String,
-    val tags: List<Tag>,
+    val tags: MutableList<Tag>,
     val title: String,
     val type: Int,
     val userId: Int,
