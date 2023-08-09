@@ -1,6 +1,7 @@
 package com.example.newdemo.repo
 
 import com.example.newdemo.core.net.NetWorkCore
+import com.example.newdemo.model.BannerModel
 import com.example.newdemo.model.BusinessResp
 import com.example.newdemo.model.IndexItem
 import com.example.newdemo.model.IndexListModel
@@ -19,6 +20,10 @@ object MainServiceImp {
 
     suspend fun getIndexArticles(index: Int): Response<BusinessResp<IndexListModel>> {
         return api.getIndexArticles(index)
+    }
+
+    suspend fun getBanners(): Response<BusinessResp<List<BannerModel>>> {
+        return api.getBanners()
     }
 
     suspend fun loginWanAndroid(

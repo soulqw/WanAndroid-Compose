@@ -10,6 +10,7 @@ import com.example.newdemo.WebViewActivity
 import com.example.newdemo.compose.widgets.LoginScreen
 import com.example.newdemo.compose.widgets.MainPage
 import com.example.newdemo.compose.widgets.PersonalDetailsScreen
+import com.test.soultools.tool.log.TLog
 
 class WanAndroidActivity : ComponentActivity() {
 
@@ -23,7 +24,9 @@ class WanAndroidActivity : ComponentActivity() {
             val navController = rememberNavController()
             NavHost(navController, startDestination = RouterDefine.HOME) {
                 composable(RouterDefine.HOME) {
-                    MainPage(nvController = navController) { _, item ->
+                    MainPage(nvController = navController, onBannerClick = {
+                        WebViewActivity.start(applicationContext, it.url)
+                    }) { _, item ->
                         WebViewActivity.start(applicationContext, item.link)
                     }
                 }
@@ -39,6 +42,11 @@ class WanAndroidActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        TLog.d("vw")
     }
 
 }

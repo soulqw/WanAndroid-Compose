@@ -4,6 +4,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newdemo.core.uitils.requestData
+import com.example.newdemo.model.BannerModel
 import com.example.newdemo.model.IndexItem
 import com.example.newdemo.model.Tag
 import com.example.newdemo.model.User
@@ -27,7 +28,9 @@ class WanMainViewModel : ViewModel() {
 
     private val _itemIndexData = mutableStateListOf<IndexItem>()
 
-//    private val _itemIndexData by mutableStateListOf<IndexItem>()
+    private val _bannerData = mutableStateListOf<BannerModel>()
+
+    var bannerDataGlobal = _bannerData
 
     val itemIndexData: List<IndexItem> = _itemIndexData
 
@@ -43,6 +46,9 @@ class WanMainViewModel : ViewModel() {
         loadMoreIndex = 0
         _itemIndexData.clear()
         refreshJob = viewModelScope.launch {
+            val bannerData = viewModelScope.async {
+                MainServiceImp.getBanners()
+            }
             val topData = viewModelScope.async {
                 MainServiceImp.getTopArticles()
             }
@@ -58,6 +64,10 @@ class WanMainViewModel : ViewModel() {
             finalResult.addAll(firstResult)
             TLog.d(TAG, finalResult)
             _itemIndexData.addAll(finalResult)
+            val banner = bannerData.await().body()?.data
+            banner ?: return@launch
+            bannerDataGlobal.clear()
+            bannerDataGlobal.addAll(banner)
             refreshJob = null
         }
     }
@@ -78,7 +88,6 @@ class WanMainViewModel : ViewModel() {
             _itemIndexData.addAll(dataList)
             isRequesting = false
         }
-
     }
 
     //index list end
@@ -107,6 +116,10 @@ class WanMainViewModel : ViewModel() {
             result ?: return@launch
             TLog.d(TAG, "$result")
         }
+    }
+    override fun onCleared() {
+        super.onCleared()
+        TLog.d("vw","")
     }
 
 }

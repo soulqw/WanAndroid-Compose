@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.newdemo.compose.WanMainViewModel
+import com.example.newdemo.model.BannerModel
 import com.example.newdemo.model.IndexItem
 import com.test.soultools.tool.log.TLog
 import kotlinx.coroutines.launch
@@ -25,6 +26,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun MainPage(
     nvController: NavHostController,
+    onBannerClick: (item: BannerModel) -> Unit,
     onItemClick: (index: Int, item: IndexItem) -> Unit
 ) {
     val scaffoldState = rememberScaffoldState()
@@ -55,7 +57,12 @@ fun MainPage(
             ) { page ->
                 when (page) {
                     0 -> {
-                        IndexList(articles = viewModel.itemIndexData, onItemClick = onItemClick)
+                        IndexPage(
+                            banners = viewModel.bannerDataGlobal,
+                            articles = viewModel.itemIndexData,
+                            onBannerClick = onBannerClick,
+                            onItemClick = onItemClick
+                        )
                     }
 
                     1 -> {

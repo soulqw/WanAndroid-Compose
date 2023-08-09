@@ -57,7 +57,7 @@ fun IndexList(
                         LazyRow(
                             Modifier.align(Alignment.CenterVertically)
                         ) {
-                            itemsIndexed(item.tags) { index: Int, item: Tag ->
+                            itemsIndexed(item.tags) { _: Int, item: Tag ->
                                 Tag(
                                     item.name, if (item.name == "置顶") {
                                         Color.Red

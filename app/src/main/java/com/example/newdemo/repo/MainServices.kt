@@ -1,5 +1,6 @@
 package com.example.newdemo.repo
 
+import com.example.newdemo.model.BannerModel
 import com.example.newdemo.model.BusinessResp
 import com.example.newdemo.model.IndexItem
 import com.example.newdemo.model.IndexListModel
@@ -18,6 +19,9 @@ interface MainServices {
 
     @GET("article/list/{index}/json")
     suspend fun getIndexArticles(@Path("index") index: Int): Response<BusinessResp<IndexListModel>>
+
+    @GET("banner/json")
+    suspend fun getBanners(): Response<BusinessResp<List<BannerModel>>>
 
     @POST("user/login")
     @FormUrlEncoded
