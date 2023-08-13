@@ -3,9 +3,14 @@ package com.example.newdemo
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.http.SslError
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.MenuItem
+import android.webkit.SslErrorHandler
+import android.webkit.WebResourceError
+import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -69,6 +74,8 @@ class WebViewActivity : AppCompatActivity() {
             loadWithOverviewMode = true
             mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
             blockNetworkImage = false
+            //不加无法打开微信公众号文章
+            domStorageEnabled  = true
         }
         web.webViewClient = object : WebViewClient() {
             override fun shouldOverrideKeyEvent(view: WebView?, event: KeyEvent?): Boolean {
@@ -79,6 +86,34 @@ class WebViewActivity : AppCompatActivity() {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
                 title = view?.title ?: "Mobile Web"
+                TLog.d(TAG,url)
+            }
+
+            override fun onReceivedError(
+                view: WebView?,
+                request: WebResourceRequest?,
+                error: WebResourceError?
+            ) {
+                super.onReceivedError(view, request, error)
+                TLog.d(TAG, request, error)
+            }
+
+            override fun onReceivedHttpError(
+                view: WebView?,
+                request: WebResourceRequest?,
+                errorResponse: WebResourceResponse?
+            ) {
+                TLog.d(TAG, request, errorResponse)
+                super.onReceivedHttpError(view, request, errorResponse)
+            }
+
+            override fun onReceivedSslError(
+                view: WebView?,
+                handler: SslErrorHandler?,
+                error: SslError?
+            ) {
+                TLog.d(TAG, handler, error)
+                super.onReceivedSslError(view, handler, error)
             }
         }
     }
