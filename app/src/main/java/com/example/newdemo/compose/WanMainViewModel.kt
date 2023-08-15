@@ -117,9 +117,29 @@ class WanMainViewModel : ViewModel() {
             TLog.d(TAG, "$result")
         }
     }
+
+    fun register(
+        account: String,
+        password: String,
+        rePassword: String,
+        callBack: (user: User) -> Unit
+    ) {
+        viewModelScope.launch {
+            val result = requestData {
+                val result = MainServiceImp.registerWanAndroid(account, password, rePassword)
+                TLog.d(TAG, "register first $result")
+                MainServiceImp.getUserProfileInfo()
+            }
+            result ?: return@launch
+            TLog.d(TAG, "get final register result : $result")
+            User.update(user = result.userInfo)
+            callBack(result.userInfo)
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
-        TLog.d("vw","")
+        TLog.d("vw", "")
     }
 
 }

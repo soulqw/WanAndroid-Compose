@@ -30,6 +30,14 @@ interface MainServices {
         @Field("password") password: String
     ): Response<BusinessResp<LoginData>>
 
+    @POST("user/register")
+    @FormUrlEncoded
+    suspend fun registerWanAndroid(
+        @Field("username") username: String,
+        @Field("password") password: String,
+        @Field("repassword") rePassword: String
+    ): Response<BusinessResp<LoginData>>
+
     /**
      * 即cookie max-Age=0
      */

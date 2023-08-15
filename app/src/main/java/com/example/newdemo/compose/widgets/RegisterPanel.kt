@@ -1,10 +1,8 @@
 package com.example.newdemo.compose.widgets
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,15 +23,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.example.newdemo.R
 import com.example.newdemo.compose.RouterDefine
 import com.example.newdemo.compose.WanMainViewModel
 import com.example.newdemo.core.uitils.CommonUtils
@@ -41,14 +35,14 @@ import com.test.soultools.tool.log.TLog
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun LoginScreen(nvController: NavHostController) {
+fun RegisterScreen(nvController: NavHostController) {
     val viewModel: WanMainViewModel = viewModel()
     TLog.d("qw", viewModel)
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            WanToolBar(title = "Login", icon = Icons.Default.ArrowBack) {
+            WanToolBar(title = "Sign up", icon = Icons.Default.ArrowBack) {
                 nvController.popBackStack()
             }
         }
@@ -64,6 +58,9 @@ fun LoginScreen(nvController: NavHostController) {
                 mutableStateOf("")
             }
             var password by remember {
+                mutableStateOf("")
+            }
+            var rePassword by remember {
                 mutableStateOf("")
             }
             OutlinedTextField(
@@ -91,32 +88,37 @@ fun LoginScreen(nvController: NavHostController) {
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(16.dp))
+            OutlinedTextField(
+                value = rePassword,
+                onValueChange = {
+                    rePassword = it.trim()
+                },
+                label = { Text(text = "RePassword") },
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    keyboardType = KeyboardType.Password
+                ),
+                visualTransformation = PasswordVisualTransformation(),
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = {
-                    if (name.isBlank() || password.isEmpty()) {
+                    if (name.isBlank() || password.isEmpty() || rePassword.isEmpty()) {
                         CommonUtils.shortToast("账号或密码为空")
                         return@Button
                     }
-                    viewModel.login(name, password) {
-                        CommonUtils.shortToast("Login Success!")
-                        nvController.popBackStack()
+                    if (password != rePassword) {
+                        CommonUtils.shortToast("两次密码输入不一致，请检查")
+                        return@Button
+                    }
+                    viewModel.register(name, password, rePassword) {
+                        CommonUtils.shortToast("Sign up Success!")
+                        nvController.popBackStack(RouterDefine.HOME, false)
                     }
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(text = "Sign In")
-            }
-            Spacer(modifier = Modifier.height(16.dp))
-            Row(modifier = Modifier.fillMaxWidth()) {
-                Text(text = "New to WanAndroid? ", color = Color.Black, fontSize = 14.sp)
-                Text(
-                    text = " Create an account",
-                    color = colorResource(R.color.purple_500),
-                    fontSize = 14.sp,
-                    modifier = Modifier.clickable {
-                        nvController.navigate(RouterDefine.REGISTER)
-                    }
-                )
+                Text(text = "Sign Up")
             }
         }
     }

@@ -33,6 +33,14 @@ object MainServiceImp {
         return api.loginWanAndroid(username, password)
     }
 
+    suspend fun registerWanAndroid(
+        username: String,
+        password: String,
+        rePassword: String,
+    ): Response<BusinessResp<LoginData>> {
+        return api.registerWanAndroid(username, password, rePassword)
+    }
+
     suspend fun logoutWanAndroid(): Response<BusinessResp<String>> {
         return api.logoutWanAndroid()
     }

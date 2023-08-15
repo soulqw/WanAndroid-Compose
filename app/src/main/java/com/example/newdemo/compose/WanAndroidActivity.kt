@@ -10,6 +10,7 @@ import com.example.newdemo.WebViewActivity
 import com.example.newdemo.compose.widgets.LoginScreen
 import com.example.newdemo.compose.widgets.MainPage
 import com.example.newdemo.compose.widgets.PersonalDetailsScreen
+import com.example.newdemo.compose.widgets.RegisterScreen
 import com.test.soultools.tool.log.TLog
 
 class WanAndroidActivity : ComponentActivity() {
@@ -21,7 +22,9 @@ class WanAndroidActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val navController = rememberNavController()
+            val navController = rememberNavController().apply {
+                setLifecycleOwner(this@WanAndroidActivity)
+            }
             NavHost(navController, startDestination = RouterDefine.HOME) {
                 composable(RouterDefine.HOME) {
                     MainPage(nvController = navController, onBannerClick = {
@@ -32,6 +35,11 @@ class WanAndroidActivity : ComponentActivity() {
                 }
                 composable(RouterDefine.LOGIN) {
                     LoginScreen(
+                        nvController = navController
+                    )
+                }
+                composable(RouterDefine.REGISTER) {
+                    RegisterScreen(
                         nvController = navController
                     )
                 }

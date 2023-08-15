@@ -1,6 +1,7 @@
 package com.example.newdemo.core.net.interceptor
 
 import com.example.newdemo.core.net.HttpConstant
+import com.example.newdemo.model.User
 import com.test.soultools.tool.log.TLog
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -28,6 +29,8 @@ class SaveCookieInterceptor : Interceptor {
                     || requestUrl.contains(HttpConstant.SAVE_USER_REGISTER_KEY))
             && cookieString.isNotEmpty()
         ) {
+            TLog.d(TAG, "登录或注册保存Cookie")
+            User.clear()
             val cookies = response.headers(HttpConstant.SET_COOKIE_KEY)
             val cookie = HttpConstant.encodeCookie(cookies)
             HttpConstant.saveCookie(requestUrl, domain, cookie)

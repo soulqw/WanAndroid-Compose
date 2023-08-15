@@ -19,12 +19,6 @@
         android:theme="@style/Theme.NewDemo"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:screenOrientation="fullSensor"
-            android:theme="@style/Theme.NewDemo.NoActionBar"/>
-        <activity
             android:name=".compose.WanAndroidActivity"
             android:exported="true"
             android:screenOrientation="fullSensor">
@@ -39,10 +33,6 @@
             android:exported="false"
             android:screenOrientation="fullSensor"
             android:theme="@style/Theme.NewDemo.NoActionBar" />
-
-        <service
-            android:name=".service.NewProcessService"
-            android:process=":qwwr" />
     </application>
 
 </manifest>
