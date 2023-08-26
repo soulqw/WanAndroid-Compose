@@ -5,16 +5,20 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.example.newdemo.compose.RouterDefine
 import com.example.newdemo.compose.WanMainViewModel
 import com.example.newdemo.model.BannerModel
 import com.example.newdemo.model.IndexItem
@@ -37,7 +41,15 @@ fun MainPage(
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
-            WanToolBar(title = "WanAndroid", icon = Icons.Filled.Menu) {
+            WanToolBar(title = "WanAndroid", icon = Icons.Filled.Menu, actions = {
+                IconButton(
+                    onClick = {
+                        nvController.navigate(RouterDefine.SEARCH)
+                    }
+                ) {
+                    Icon(Icons.Filled.Search, contentDescription = "search")
+                }
+            }) {
                 scope.launch {
                     scaffoldState.drawerState.open()
                 }
