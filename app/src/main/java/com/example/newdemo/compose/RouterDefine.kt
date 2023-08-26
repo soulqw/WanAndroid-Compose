@@ -8,5 +8,6 @@ class RouterDefine {
         const val REGISTER = "register"
         const val USER_PROFILE = "profile"
         const val SEARCH = "search"
+        const val SETTINGS = "settings"
     }
 }

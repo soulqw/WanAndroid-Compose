@@ -12,6 +12,7 @@ import com.example.newdemo.compose.widgets.MainPage
 import com.example.newdemo.compose.widgets.PersonalDetailsScreen
 import com.example.newdemo.compose.widgets.RegisterScreen
 import com.example.newdemo.compose.widgets.SearchPanel
+import com.example.newdemo.compose.widgets.SettingsPanel
 import com.test.soultools.tool.log.TLog
 
 class WanAndroidActivity : ComponentActivity() {
@@ -51,6 +52,11 @@ class WanAndroidActivity : ComponentActivity() {
                 }
                 composable(RouterDefine.SEARCH) {
                     SearchPanel(
+                        nvController = navController
+                    )
+                }
+                composable(RouterDefine.SETTINGS) {
+                    SettingsPanel(
                         nvController = navController
                     )
                 }

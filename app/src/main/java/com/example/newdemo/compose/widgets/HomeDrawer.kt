@@ -72,7 +72,7 @@ fun DrawerContent(nvController: NavHostController) {
                     )
                 },
                 modifier = Modifier.clickable(onClick = {
-                    // TODO: Handle click event
+                    nvController.navigate(RouterDefine.SETTINGS)
                 })
             )
         }
