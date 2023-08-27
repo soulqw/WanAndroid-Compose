@@ -7,12 +7,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.newdemo.WebViewActivity
-import com.example.newdemo.compose.widgets.LoginScreen
-import com.example.newdemo.compose.widgets.MainPage
-import com.example.newdemo.compose.widgets.PersonalDetailsScreen
-import com.example.newdemo.compose.widgets.RegisterScreen
-import com.example.newdemo.compose.widgets.SearchPanel
-import com.example.newdemo.compose.widgets.SettingsPanel
+import com.example.newdemo.compose.pages.LoginScreen
+import com.example.newdemo.compose.pages.MainPage
+import com.example.newdemo.compose.pages.PersonalDetailsScreen
+import com.example.newdemo.compose.pages.RegisterScreen
+import com.example.newdemo.compose.pages.SearchPanel
+import com.example.newdemo.compose.pages.SettingsPanel
 import com.test.soultools.tool.log.TLog
 
 class WanAndroidActivity : ComponentActivity() {

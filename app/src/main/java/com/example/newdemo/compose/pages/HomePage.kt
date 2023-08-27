@@ -1,4 +1,4 @@
-package com.example.newdemo.compose.widgets
+package com.example.newdemo.compose.pages
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -20,6 +20,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.newdemo.compose.RouterDefine
 import com.example.newdemo.compose.WanMainViewModel
+import com.example.newdemo.compose.widgets.BottomBar
+import com.example.newdemo.compose.widgets.WanToolBar
 import com.example.newdemo.model.BannerModel
 import com.example.newdemo.model.IndexItem
 import com.test.soultools.tool.log.TLog
@@ -62,7 +64,7 @@ fun MainPage(
         Column {
             val pagerState = rememberPagerState()
             HorizontalPager(
-                pageCount = 5,
+                pageCount = 2,
                 modifier = Modifier.weight(1f),
                 state = pagerState,
                 userScrollEnabled = false
@@ -75,10 +77,6 @@ fun MainPage(
                             onBannerClick = onBannerClick,
                             onItemClick = onItemClick
                         )
-                    }
-
-                    1 -> {
-                        Text(text = "this is wechat")
                     }
 
                     else -> {

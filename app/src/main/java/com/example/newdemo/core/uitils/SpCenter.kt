@@ -18,6 +18,8 @@ object SpCenter {
 
     var USER by Delegates.string("")
 
+    var DARK_MODE by Delegates.boolean(false)
+
     object Delegates {
 
         fun int(defaultValue: Int = 0) = object : ReadWriteProperty<SpCenter, Int> {

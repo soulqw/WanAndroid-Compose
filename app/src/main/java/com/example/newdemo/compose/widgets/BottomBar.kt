@@ -34,41 +34,12 @@ fun BottomBar(selected: Int, onSelectedChanged: (Int) -> Unit) {
                 }
         )
         TabItem(
-            com.example.newdemo.R.drawable.ic_square_black_24dp,
-            "广场",
-            if (selected == 1) Color.Black else Color.LightGray,
-            Modifier
-                .weight(1f)
-                .clickable {
-                    onSelectedChanged(1)
-                }
-        )
-        TabItem(
-            com.example.newdemo.R.drawable.ic_wechat_black_24dp,
-            "公众号",
-            if (selected == 2) Color.Black else Color.LightGray,
-            Modifier
-                .weight(1f)
-                .clickable {
-                    onSelectedChanged(2)
-                }
-        )
-        TabItem(
             com.example.newdemo.R.drawable.ic_apps_black_24dp, "体系",
             if (selected == 3) Color.Black else Color.LightGray,
             Modifier
                 .weight(1f)
                 .clickable {
                     onSelectedChanged(3)
-                }
-        )
-        TabItem(
-            com.example.newdemo.R.drawable.ic_project_black_24dp, "项目",
-            if (selected == 4) Color.Black else Color.LightGray,
-            Modifier
-                .weight(1f)
-                .clickable {
-                    onSelectedChanged(4)
                 }
         )
     }

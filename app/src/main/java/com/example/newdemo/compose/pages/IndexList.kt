@@ -1,4 +1,4 @@
-package com.example.newdemo.compose.widgets
+package com.example.newdemo.compose.pages
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.newdemo.R
 import com.example.newdemo.compose.WanMainViewModel
+import com.example.newdemo.compose.widgets.Tag
 import com.example.newdemo.model.IndexItem
 import com.example.newdemo.model.Tag
 import com.test.soultools.tool.log.TLog

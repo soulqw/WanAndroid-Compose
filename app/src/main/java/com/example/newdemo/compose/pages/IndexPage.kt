@@ -1,4 +1,4 @@
-package com.example.newdemo.compose.widgets
+package com.example.newdemo.compose.pages
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background

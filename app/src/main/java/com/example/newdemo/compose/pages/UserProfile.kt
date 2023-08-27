@@ -1,4 +1,4 @@
-package com.example.newdemo.compose.widgets
+package com.example.newdemo.compose.pages
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.newdemo.compose.WanMainViewModel
+import com.example.newdemo.compose.widgets.WanToolBar
 import com.example.newdemo.model.User
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")

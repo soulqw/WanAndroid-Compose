@@ -1,4 +1,4 @@
-package com.example.newdemo.compose.widgets
+package com.example.newdemo.compose.pages
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
@@ -36,6 +36,7 @@ import androidx.navigation.NavHostController
 import com.example.newdemo.R
 import com.example.newdemo.compose.RouterDefine
 import com.example.newdemo.compose.WanMainViewModel
+import com.example.newdemo.compose.widgets.WanToolBar
 import com.example.newdemo.core.uitils.CommonUtils
 import com.test.soultools.tool.log.TLog
 
