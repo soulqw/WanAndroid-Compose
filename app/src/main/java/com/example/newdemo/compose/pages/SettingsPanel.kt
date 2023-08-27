@@ -1,7 +1,6 @@
 package com.example.newdemo.compose.pages
 
 import GlobalComposeTheme
-import WanAndroidTheme
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -32,54 +31,47 @@ import com.example.newdemo.core.uitils.SpCenter
 @Composable
 fun SettingsPanel(nvController: NavHostController) {
     var isChecked by remember { mutableStateOf(SpCenter.DARK_MODE) }
-    val currentTheme = if (isChecked) {
-        GlobalComposeTheme.Theme.Dark
-    } else {
-        GlobalComposeTheme.Theme.Light
-    }
-    WanAndroidTheme(currentTheme) {
-        Scaffold(
-            topBar = {
-                WanToolBar(title = "Settings", icon = Icons.Default.ArrowBack) {
-                    nvController.popBackStack()
-                }
-            },
-            content = {
-                Column(
+    Scaffold(
+        topBar = {
+            WanToolBar(title = "Settings", icon = Icons.Default.ArrowBack) {
+                nvController.popBackStack()
+            }
+        },
+        content = {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(GlobalComposeTheme.colors.background)
+            ) {
+                Row(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .background(GlobalComposeTheme.colors.background)
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(
+                    Text(
+                        text = "Dark Mode",
+                        color = GlobalComposeTheme.colors.primaryText,
+                        style = MaterialTheme.typography.subtitle1,
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = "Dark Mode",
-                            color = GlobalComposeTheme.colors.primaryText,
-                            style = MaterialTheme.typography.subtitle1,
-                            modifier = Modifier
-                                .weight(1f)
-                                .padding(start = 4.dp)
-                        )
-                        Switch(
-                            checked = isChecked,
-                            onCheckedChange = {
-                                isChecked = it
-                                SpCenter.DARK_MODE = it
-                            }
-                        )
-                    }
-                    Divider(
-                        color = GlobalComposeTheme.colors.divider,
-                        thickness = 0.5.dp
+                            .weight(1f)
+                            .padding(start = 4.dp)
+                    )
+                    Switch(
+                        checked = isChecked,
+                        onCheckedChange = {
+                            isChecked = it
+                            SpCenter.DARK_MODE = it
+                        }
                     )
                 }
+                Divider(
+                    color = GlobalComposeTheme.colors.divider,
+                    thickness = 0.5.dp
+                )
             }
-        )
-    }
+        }
+    )
 }
 
 

@@ -1,8 +1,10 @@
 package com.example.newdemo.compose
 
+import GlobalComposeTheme
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.newdemo.core.uitils.SpCenter
 import com.example.newdemo.core.uitils.requestData
 import com.example.newdemo.model.BannerModel
 import com.example.newdemo.model.IndexItem
@@ -134,6 +136,15 @@ class WanMainViewModel : ViewModel() {
             TLog.d(TAG, "get final register result : $result")
             User.update(user = result.userInfo)
             callBack(result.userInfo)
+        }
+    }
+
+    fun getCurrentTheme(): GlobalComposeTheme.Theme {
+        //todo theme view model
+        return if (SpCenter.DARK_MODE) {
+            GlobalComposeTheme.Theme.Dark
+        } else {
+            GlobalComposeTheme.Theme.Dark
         }
     }
 

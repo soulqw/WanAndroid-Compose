@@ -1,7 +1,9 @@
 package com.example.newdemo.compose.pages
 
+import GlobalComposeTheme
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -61,7 +63,7 @@ fun MainPage(
             DrawerContent(nvController)
         }
     ) {
-        Column {
+        Column(modifier = Modifier.background(GlobalComposeTheme.colors.background)) {
             val pagerState = rememberPagerState()
             HorizontalPager(
                 pageCount = 2,

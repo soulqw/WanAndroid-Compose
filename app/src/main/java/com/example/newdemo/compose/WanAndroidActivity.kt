@@ -1,8 +1,10 @@
 package com.example.newdemo.compose
 
+import WanAndroidTheme
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -24,41 +26,44 @@ class WanAndroidActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val navController = rememberNavController().apply {
-                setLifecycleOwner(this@WanAndroidActivity)
-            }
-            NavHost(navController, startDestination = RouterDefine.HOME) {
-                composable(RouterDefine.HOME) {
-                    MainPage(nvController = navController, onBannerClick = {
-                        WebViewActivity.start(applicationContext, it.url)
-                    }) { _, item ->
-                        WebViewActivity.start(applicationContext, item.link)
+            val viewModel: WanMainViewModel = viewModel()
+            WanAndroidTheme(viewModel.getCurrentTheme()) {
+                val navController = rememberNavController().apply {
+                    setLifecycleOwner(this@WanAndroidActivity)
+                }
+                NavHost(navController, startDestination = RouterDefine.HOME) {
+                    composable(RouterDefine.HOME) {
+                        MainPage(nvController = navController, onBannerClick = {
+                            WebViewActivity.start(applicationContext, it.url)
+                        }) { _, item ->
+                            WebViewActivity.start(applicationContext, item.link)
+                        }
                     }
-                }
-                composable(RouterDefine.LOGIN) {
-                    LoginScreen(
-                        nvController = navController
-                    )
-                }
-                composable(RouterDefine.REGISTER) {
-                    RegisterScreen(
-                        nvController = navController
-                    )
-                }
-                composable(RouterDefine.USER_PROFILE) {
-                    PersonalDetailsScreen(
-                        nvController = navController
-                    )
-                }
-                composable(RouterDefine.SEARCH) {
-                    SearchPanel(
-                        nvController = navController
-                    )
-                }
-                composable(RouterDefine.SETTINGS) {
-                    SettingsPanel(
-                        nvController = navController
-                    )
+                    composable(RouterDefine.LOGIN) {
+                        LoginScreen(
+                            nvController = navController
+                        )
+                    }
+                    composable(RouterDefine.REGISTER) {
+                        RegisterScreen(
+                            nvController = navController
+                        )
+                    }
+                    composable(RouterDefine.USER_PROFILE) {
+                        PersonalDetailsScreen(
+                            nvController = navController
+                        )
+                    }
+                    composable(RouterDefine.SEARCH) {
+                        SearchPanel(
+                            nvController = navController
+                        )
+                    }
+                    composable(RouterDefine.SETTINGS) {
+                        SettingsPanel(
+                            nvController = navController
+                        )
+                    }
                 }
             }
         }

@@ -1,7 +1,7 @@
 package com.example.newdemo.compose.widgets
 
+import GlobalComposeTheme
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,12 +21,12 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun BottomBar(selected: Int, onSelectedChanged: (Int) -> Unit) {
     Divider(
-        color = Color.LightGray,
+        color = GlobalComposeTheme.colors.divider,
         thickness = 0.5.dp
     )
-    Row(Modifier.background(Color.White)) {
+    Row() {
         TabItem(com.example.newdemo.R.drawable.ic_home_black_24dp, "首页",
-            if (selected == 0) Color.Black else Color.LightGray,
+            if (selected == 0) GlobalComposeTheme.colors.primary else GlobalComposeTheme.colors.secondary,
             Modifier
                 .weight(1f)
                 .clickable {
@@ -35,11 +35,11 @@ fun BottomBar(selected: Int, onSelectedChanged: (Int) -> Unit) {
         )
         TabItem(
             com.example.newdemo.R.drawable.ic_apps_black_24dp, "体系",
-            if (selected == 3) Color.Black else Color.LightGray,
+            if (selected == 1) GlobalComposeTheme.colors.primary else GlobalComposeTheme.colors.secondary,
             Modifier
                 .weight(1f)
                 .clickable {
-                    onSelectedChanged(3)
+                    onSelectedChanged(1)
                 }
         )
     }

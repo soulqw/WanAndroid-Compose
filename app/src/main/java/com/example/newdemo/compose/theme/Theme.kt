@@ -50,7 +50,7 @@ fun WanAndroidTheme(
 
 private val LightColor = WanAndroidColors(
     background = Color.White,
-    divider = Color.Gray,
+    divider = Color.LightGray,
     primary = Color(0xFF6200EE),
     primaryText = Color.Black,
     secondary = Color.Gray
@@ -58,7 +58,7 @@ private val LightColor = WanAndroidColors(
 
 private val DarkColor = WanAndroidColors(
     background = Color.Black,
-    divider = Color(0xFFBDBDBD),
+    divider = Color.LightGray,
     primary = Color(0xFF6200EE),
     primaryText = Color.White,
     secondary = Color(0xFFBDBDBD)

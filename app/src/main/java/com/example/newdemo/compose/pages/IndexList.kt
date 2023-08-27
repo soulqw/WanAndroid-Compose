@@ -1,5 +1,6 @@
 package com.example.newdemo.compose.pages
 
+import GlobalComposeTheme
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -71,7 +72,7 @@ fun IndexList(
                         }
                         Text(
                             text = item.author,
-                            color = Color.Gray,
+                            color = GlobalComposeTheme.colors.secondary,
                             fontSize = 14.sp,
                             modifier = Modifier
                                 .padding(start = 8.dp)
@@ -80,7 +81,7 @@ fun IndexList(
                     }
                     Text(
                         text = item.niceDate,
-                        color = Color.Gray,
+                        color = GlobalComposeTheme.colors.secondary,
                         fontSize = 14.sp,
                         modifier = Modifier
                             .align(Alignment.CenterEnd)
@@ -89,7 +90,7 @@ fun IndexList(
                 Text(
                     maxLines = 2,
                     text = item.title,
-                    color = Color.Black,
+                    color = GlobalComposeTheme.colors.primaryText,
                     fontSize = 18.sp,
                     style = TextStyle(fontWeight = FontWeight.Bold),
                     modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
@@ -97,7 +98,7 @@ fun IndexList(
                 Box(Modifier.fillMaxWidth()) {
                     Text(
                         text = item.superChapterName,
-                        color = Color.Gray,
+                        color = GlobalComposeTheme.colors.secondary,
                         fontSize = 14.sp,
                     )
                     val iconId = if (item.collect) {
@@ -118,7 +119,7 @@ fun IndexList(
             }
             if (index < articles.lastIndex) {
                 Divider(
-                    color = Color.LightGray,
+                    color = GlobalComposeTheme.colors.divider,
                     thickness = 0.5.dp
                 )
             }
