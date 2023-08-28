@@ -23,13 +23,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.example.newdemo.compose.WanMainViewModel
 import com.example.newdemo.compose.widgets.WanToolBar
 import com.example.newdemo.core.uitils.SpCenter
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun SettingsPanel(nvController: NavHostController) {
+fun SettingsPanel(viewModelStoreOwner: ViewModelStoreOwner, nvController: NavHostController) {
+    val viewModel: WanMainViewModel = viewModel(viewModelStoreOwner)
     var isChecked by remember { mutableStateOf(SpCenter.DARK_MODE) }
     Scaffold(
         topBar = {
@@ -62,6 +66,11 @@ fun SettingsPanel(nvController: NavHostController) {
                         onCheckedChange = {
                             isChecked = it
                             SpCenter.DARK_MODE = it
+                            viewModel.theme = if (it) {
+                                GlobalComposeTheme.Theme.Dark
+                            } else {
+                                GlobalComposeTheme.Theme.Light
+                            }
                         }
                     )
                 }

@@ -26,8 +26,10 @@ class WanAndroidActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val viewModel: WanMainViewModel = viewModel()
-            WanAndroidTheme(viewModel.getCurrentTheme()) {
+            val viewModelStoreOwner = this@WanAndroidActivity
+            val viewModel: WanMainViewModel =
+                viewModel(viewModelStoreOwner)
+            WanAndroidTheme(viewModel.theme) {
                 val navController = rememberNavController().apply {
                     setLifecycleOwner(this@WanAndroidActivity)
                 }
@@ -61,6 +63,7 @@ class WanAndroidActivity : ComponentActivity() {
                     }
                     composable(RouterDefine.SETTINGS) {
                         SettingsPanel(
+                            viewModelStoreOwner,
                             nvController = navController
                         )
                     }

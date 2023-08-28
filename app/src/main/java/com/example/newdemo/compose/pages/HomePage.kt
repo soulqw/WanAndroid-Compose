@@ -18,6 +18,7 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.newdemo.compose.RouterDefine
@@ -51,7 +52,7 @@ fun MainPage(
                         nvController.navigate(RouterDefine.SEARCH)
                     }
                 ) {
-                    Icon(Icons.Filled.Search, contentDescription = "search")
+                    Icon(Icons.Filled.Search, contentDescription = "search", tint = Color.White)
                 }
             }) {
                 scope.launch {

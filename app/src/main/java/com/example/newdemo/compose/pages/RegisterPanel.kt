@@ -10,10 +10,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
@@ -40,7 +40,7 @@ fun RegisterScreen(nvController: NavHostController) {
     val viewModel: WanMainViewModel = viewModel()
     TLog.d("qw", viewModel)
     Scaffold(
-        backgroundColor = MaterialTheme.colors.background,
+        backgroundColor = GlobalComposeTheme.colors.background,
         modifier = Modifier.fillMaxSize(),
         topBar = {
             WanToolBar(title = "Sign up", icon = Icons.Default.ArrowBack) {
@@ -65,6 +65,11 @@ fun RegisterScreen(nvController: NavHostController) {
                 mutableStateOf("")
             }
             OutlinedTextField(
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    textColor = GlobalComposeTheme.colors.primaryText,
+                    unfocusedBorderColor = GlobalComposeTheme.colors.secondary,
+                    unfocusedLabelColor = GlobalComposeTheme.colors.secondary
+                ),
                 value = name,
                 onValueChange = {
                     name = it.trim()
@@ -77,6 +82,11 @@ fun RegisterScreen(nvController: NavHostController) {
             )
             Spacer(modifier = Modifier.height(16.dp))
             OutlinedTextField(
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    textColor = GlobalComposeTheme.colors.primaryText,
+                    unfocusedBorderColor = GlobalComposeTheme.colors.secondary,
+                    unfocusedLabelColor = GlobalComposeTheme.colors.secondary
+                ),
                 value = password,
                 onValueChange = {
                     password = it.trim()
@@ -90,6 +100,11 @@ fun RegisterScreen(nvController: NavHostController) {
             )
             Spacer(modifier = Modifier.height(16.dp))
             OutlinedTextField(
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    textColor = GlobalComposeTheme.colors.primaryText,
+                    unfocusedBorderColor = GlobalComposeTheme.colors.secondary,
+                    unfocusedLabelColor = GlobalComposeTheme.colors.secondary
+                ),
                 value = rePassword,
                 onValueChange = {
                     rePassword = it.trim()

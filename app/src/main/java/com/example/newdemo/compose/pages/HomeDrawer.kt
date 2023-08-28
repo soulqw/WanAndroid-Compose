@@ -1,5 +1,7 @@
 package com.example.newdemo.compose.pages
 
+import GlobalComposeTheme
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,7 +19,6 @@ import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.newdemo.compose.RouterDefine
@@ -29,6 +30,7 @@ fun DrawerContent(nvController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(GlobalComposeTheme.colors.background)
             .padding(top = 24.dp)
     ) {
         Column(modifier = Modifier
@@ -45,7 +47,8 @@ fun DrawerContent(nvController: NavHostController) {
                 contentDescription = "Avatar",
                 modifier = Modifier
                     .size(80.dp)
-                    .padding(horizontal = 16.dp)
+                    .padding(horizontal = 16.dp),
+                tint = GlobalComposeTheme.colors.primaryText
             )
             Text(
                 text = if (User.alreadyLogin()) {
@@ -53,22 +56,23 @@ fun DrawerContent(nvController: NavHostController) {
                 } else {
                     "未登录"
                 },
-                color = Color.Black,
+                color = GlobalComposeTheme.colors.primaryText,
                 style = MaterialTheme.typography.h6,
                 modifier = Modifier.padding(start = 16.dp, top = 16.dp)
             )
         }
         Divider(
-            color = Color.LightGray,
+            color = GlobalComposeTheme.colors.divider,
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
         )
         Column() {
             ListItem(
-                text = { Text(text = "设置") },
+                text = { Text(text = "设置", color = GlobalComposeTheme.colors.primaryText) },
                 icon = {
                     Icon(
                         imageVector = Icons.Default.Settings,
-                        contentDescription = ""
+                        contentDescription = "",
+                        tint = GlobalComposeTheme.colors.primaryText
                     )
                 },
                 modifier = Modifier.clickable(onClick = {

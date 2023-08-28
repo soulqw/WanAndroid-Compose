@@ -1,5 +1,6 @@
 package com.example.newdemo.compose.pages
 
+import GlobalComposeTheme
 import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -12,10 +13,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
@@ -25,7 +26,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -46,7 +46,7 @@ fun LoginScreen(nvController: NavHostController) {
     val viewModel: WanMainViewModel = viewModel()
     TLog.d("qw", viewModel)
     Scaffold(
-        backgroundColor = MaterialTheme.colors.background,
+        backgroundColor = GlobalComposeTheme.colors.background,
         modifier = Modifier.fillMaxSize(),
         topBar = {
             WanToolBar(title = "Login", icon = Icons.Default.ArrowBack) {
@@ -68,6 +68,11 @@ fun LoginScreen(nvController: NavHostController) {
                 mutableStateOf("")
             }
             OutlinedTextField(
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    textColor = GlobalComposeTheme.colors.primaryText,
+                    unfocusedBorderColor = GlobalComposeTheme.colors.secondary,
+                    unfocusedLabelColor = GlobalComposeTheme.colors.secondary
+                ),
                 value = name,
                 onValueChange = {
                     name = it.trim()
@@ -80,6 +85,11 @@ fun LoginScreen(nvController: NavHostController) {
             )
             Spacer(modifier = Modifier.height(16.dp))
             OutlinedTextField(
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    textColor = GlobalComposeTheme.colors.primaryText,
+                    unfocusedBorderColor = GlobalComposeTheme.colors.secondary,
+                    unfocusedLabelColor = GlobalComposeTheme.colors.secondary
+                ),
                 value = password,
                 onValueChange = {
                     password = it.trim()
@@ -109,7 +119,11 @@ fun LoginScreen(nvController: NavHostController) {
             }
             Spacer(modifier = Modifier.height(16.dp))
             Row(modifier = Modifier.fillMaxWidth()) {
-                Text(text = "New to WanAndroid? ", color = Color.Black, fontSize = 14.sp)
+                Text(
+                    text = "New to WanAndroid? ",
+                    color = GlobalComposeTheme.colors.primaryText,
+                    fontSize = 14.sp
+                )
                 Text(
                     text = " Create an account",
                     color = colorResource(R.color.purple_500),

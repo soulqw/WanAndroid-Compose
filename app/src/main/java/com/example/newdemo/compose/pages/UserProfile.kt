@@ -1,8 +1,11 @@
 package com.example.newdemo.compose.pages
 
+import GlobalComposeTheme
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -36,22 +39,35 @@ fun PersonalDetailsScreen(nvController: NavHostController) {
         },
         content = {
             Column(
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(GlobalComposeTheme.colors.background)
+                    .padding(16.dp)
             ) {
                 Icon(
+                    tint = GlobalComposeTheme.colors.primaryText,
                     imageVector = Icons.Filled.AccountBox,
                     contentDescription = "Avatar",
                     modifier = Modifier
                         .size(120.dp)
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                Text(text = User.current.getShowName(), style = MaterialTheme.typography.h5)
+                Text(
+                    text = User.current.getShowName(),
+                    style = MaterialTheme.typography.h5,
+                    color = GlobalComposeTheme.colors.primaryText
+                )
                 Spacer(modifier = Modifier.height(8.dp))
-                Text(text = User.current.nickname, style = MaterialTheme.typography.subtitle1)
+                Text(
+                    text = User.current.nickname,
+                    style = MaterialTheme.typography.subtitle1,
+                    color = GlobalComposeTheme.colors.primaryText
+                )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = User.current.coinCount.toString(),
-                    style = MaterialTheme.typography.subtitle1
+                    style = MaterialTheme.typography.subtitle1,
+                    color = GlobalComposeTheme.colors.primaryText
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(
