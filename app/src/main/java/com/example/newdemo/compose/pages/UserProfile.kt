@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.example.newdemo.compose.WanMainViewModel
+import com.example.newdemo.compose.viewmodel.WanMainViewModel
 import com.example.newdemo.compose.widgets.WanToolBar
 import com.example.newdemo.model.User
 

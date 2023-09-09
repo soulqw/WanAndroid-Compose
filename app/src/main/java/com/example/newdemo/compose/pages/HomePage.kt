@@ -21,8 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.example.newdemo.compose.RouterDefine
-import com.example.newdemo.compose.WanMainViewModel
+import com.example.newdemo.compose.commom.RouterDefine
+import com.example.newdemo.compose.viewmodel.WanMainViewModel
 import com.example.newdemo.compose.widgets.BottomBar
 import com.example.newdemo.compose.widgets.WanToolBar
 import com.example.newdemo.model.BannerModel

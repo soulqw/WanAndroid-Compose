@@ -1,4 +1,4 @@
-package com.example.newdemo.compose
+package com.example.newdemo.compose.viewmodel
 
 import GlobalComposeTheme
 import androidx.compose.runtime.getValue

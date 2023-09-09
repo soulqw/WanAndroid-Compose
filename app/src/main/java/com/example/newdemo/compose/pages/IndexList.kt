@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.newdemo.R
-import com.example.newdemo.compose.WanMainViewModel
+import com.example.newdemo.compose.viewmodel.WanMainViewModel
 import com.example.newdemo.compose.widgets.Tag
 import com.example.newdemo.model.IndexItem
 import com.example.newdemo.model.Tag

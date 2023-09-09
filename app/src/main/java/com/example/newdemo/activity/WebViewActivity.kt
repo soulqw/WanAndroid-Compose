@@ -1,4 +1,4 @@
-package com.example.newdemo
+package com.example.newdemo.activity
 
 import android.app.Activity
 import android.content.Context
@@ -17,6 +17,7 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.example.newdemo.R
 import com.test.soultools.tool.log.TLog
 
 class WebViewActivity : AppCompatActivity() {

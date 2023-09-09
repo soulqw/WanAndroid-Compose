@@ -28,8 +28,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.example.newdemo.compose.RouterDefine
-import com.example.newdemo.compose.WanMainViewModel
+import com.example.newdemo.compose.commom.RouterDefine
+import com.example.newdemo.compose.viewmodel.WanMainViewModel
 import com.example.newdemo.compose.widgets.WanToolBar
 import com.example.newdemo.core.uitils.CommonUtils
 import com.test.soultools.tool.log.TLog
